@@ -127,7 +127,7 @@
 						<div class="header__contacts2">
 							<div class="header__contacts-phone2">
 								<a style="padding-right: 7px;" href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone']) ?>"><?= $this->set['phone'] ?></a>
-								<a href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone']) ?>"><?= $this->set['phone'] ?></a>
+								<a href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone_2']) ?>"><?= $this->set['phone_2'] ?></a>
 								<span class="header__contacts-time2"><?= $this->set['working_time'] ?></span>
 							</div>
 						</div>
@@ -185,7 +185,7 @@
 						<div class="header__contacts">
 							<div class="header__contacts-phone">
 								<a style="padding-right: 10px;" href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone']) ?>"><?= $this->set['phone'] ?></a>
-								<a href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone']) ?>"><?= $this->set['phone'] ?></a>
+								<a href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone_2']) ?>"><?= $this->set['phone_2'] ?></a>
 								<span class="header__contacts-time"><?= $this->set['working_time'] ?></span>
 							</div>
 						</div>
@@ -247,8 +247,7 @@
 										<!-- меню 2го уровня Правое -->
 										<div class="navi-category__list-content navi-category__nc-<?= $item['id'] ?>">
 											<a class="navi-category__mobile-back-all-category" href="#">Все категории</a>
-											<div style="color:blue; font-size:large; font-weight:700; padding:5px 5px 25px 5px"><?= $item['name'] ?></div>
-
+											<div style="color: #fd834f; font-size: large; font-weight: 700; padding: 5px 5px 25px 5px"><?= $item['name'] ?></div>
 
 											<div class="navi-category__submenu">
 

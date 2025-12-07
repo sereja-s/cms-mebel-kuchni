@@ -8,7 +8,7 @@
 			<div class="footer__info">
 
 				<a href="#" class="footer__logo-link">
-					<img class="footer__logo-img" src="<?= PATH . TEMPLATE ?>assets/img/строй_контакт.png" alt="СТРОЙ КОНТАКТ">
+					<img class="footer__logo-img" src="<?= $this->img($this->set['img']) ?>" alt="СТРОЙ КОНТАКТ">
 				</a>
 
 			</div>
@@ -35,34 +35,33 @@
 
 			</ul>
 
-
 		</div>
-	</div>
+		<div class="footer__info-footer">
 
-	<div class="footer__info-footer">
-
-		<!-- footer phone -->
-		<div class="footer__phone">
-			<a href="tel:+3809715095655">+7(949)123-456-78</a>
-		</div>
-
-		<?php if (!empty($this->socials)) : ?>
-
-			<div class="footer__social">
-
-				<?php foreach ($this->socials as $item) : ?>
-
-					<!-- social link -->
-
-					<a class="footer__social-link" href="<?= $this->alias($item['external_alias']) ?>"><img src="<?= $this->img($item['img']) ?>" alt="<?= $item['name'] ?>"></a>
-
-
-				<?php endforeach; ?>
-
+			<!-- footer phone -->
+			<div class="footer__phone">
+				<a href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone']) ?>"><?= $this->set['phone'] ?></a>
+				<a href="tel:<?= preg_replace('/[^+\d]/', '', $this->set['phone_2']) ?>"><?= $this->set['phone_2'] ?></a>
 			</div>
 
-		<?php endif; ?>
+			<?php if (!empty($this->socials)) : ?>
 
+				<div class="footer__social">
+
+					<?php foreach ($this->socials as $item) : ?>
+
+						<!-- social link -->
+
+						<a class="footer__social-link" href="<?= $this->alias($item['external_alias']) ?>"><img src="<?= $this->img($item['img']) ?>" alt="<?= $item['name'] ?>"></a>
+
+
+					<?php endforeach; ?>
+
+				</div>
+
+			<?php endif; ?>
+
+		</div>
 	</div>
 
 	<!-- footer copyright start -->

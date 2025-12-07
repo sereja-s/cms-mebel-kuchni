@@ -462,8 +462,6 @@ abstract class BaseAdmin extends BaseController
 		}
 	}
 
-
-
 	/** 
 	 * Метод валидатора (проверка на допустимое количество символов в поле шаблона админки)
 	 */
@@ -1648,7 +1646,7 @@ abstract class BaseAdmin extends BaseController
 	/** 
 	 * Метод для формирования первичных данных для сортировки информации в таблицах БД (Выпуск №42)
 	 */
-	protected function createMenuPosition($settings = false)
+	/* protected function createMenuPosition($settings = false)
 	{
 
 		// если ячейка: menu_position (в массиве: columns) существует (и в неё что то пришло)
@@ -1734,6 +1732,112 @@ abstract class BaseAdmin extends BaseController
 			// Для редактирования (edit), $menu_pos не увеличиваем
 			// имеем: если $this->data пришла, то !$this->data даёт false, а значит (int)!$this->data = 0 (для edit),
 			// а если $this->data не пришла, то !$this->data даёт true, а значит (int)!$this->data = 1 (для add)
+
+			for ($i = 1; $i <= $menu_pos; $i++) {
+
+				$this->foreignData['menu_position'][$i - 1]['id'] = $i;
+
+				$this->foreignData['menu_position'][$i - 1]['name'] = $i;
+			}
+		}
+
+		return;
+	} */
+
+	protected function createMenuPosition($settings = false)
+	{
+
+		// если ячейка: menu_position (в массиве: columns) существует (и в неё что то пришло)
+		if ($this->columns['menu_position']) {
+
+			// если настройки ещё не получены
+			if (!$settings) {
+
+				// то получим настройки
+				$settings = Settings::instance();
+			}
+
+			// получим из файла настроек св-во: rootItems
+			$rootItems = $settings::get('rootItems');
+
+			if ($this->columns['parent_id']) {
+
+				if ($this->data) {
+
+					$where = ['parent_id' => $this->data['parent_id']];
+				} else {
+
+					// если в массиве: rootItems (его ячейке: tables есть то,что хранится в свойстве: table (название таблицы))
+					if (in_array($this->table, $rootItems['tables'])) {
+
+						// в переменную положим строку
+						$where = 'parent_id IS NULL OR parent_id = 0';
+
+						// иначе
+					} else {
+
+						// запросим внешние ключи
+						// (в параметры ф-ии передаём: название таюлицы и ключ (в виде строки)), в конце указываем, что в $parent нам
+						// вся выборка не нужна (нужно вернуть нулевой элемент (здесь он или будет или не будет))
+						$parent = $this->model->showForeignKeys($this->table, 'parent_id')[0];
+
+						// если родитель пришёл
+						if ($parent) {
+
+							// если таблица указана в ключе (ссылается сама на себя)
+							if ($this->table === $parent['REFERENCED_TABLE_NAME']) {
+
+								$where = 'parent_id IS NULL OR parent_id = 0';
+							} else {
+
+								$columns = $this->model->showColumns($parent['REFERENCED_TABLE_NAME']);
+
+								if ($columns['parent_id']) {
+
+									// в элемент массива: order сохраним строку: parent_id
+									$order[] = 'parent_id';
+								} else {
+
+									// сортировать нужно по тем полям, на которые идёт ссылка
+									// в элемент массива: order получим то поле, которое является идентификатором
+									$order[] = $parent['REFERENCED_COLUMN_NAME'];
+								}
+
+								$id = $this->model->get($parent['REFERENCED_TABLE_NAME'], [
+									// укажем какие поля из поданного на вход функции: get() массива: parent (его ячейки: 
+									// REFERENCED_TABLE_NAME) должны получить
+									'fields' => [$parent['REFERENCED_COLUMN_NAME']],
+									'order' => $order,
+									'limit' => '1'
+								])[0][$parent['REFERENCED_COLUMN_NAME']]; // укажем, что вернуть надо нулевой элемент той выборки, 
+								// которая пришла (и то поле, которое мы запрашиваем)
+
+								if ($id) {
+									$where = ['parent_id' => $id];
+								}
+							}
+						} else {
+
+							$where = 'parent_id IS NULL OR parent_id = 0';
+						}
+					}
+				}
+			}
+
+			$menu_pos = $this->model->get($this->table, [
+				// укажем какие поля из поданной на вход функции: get() таблицы (в св-ве: table) должны получить
+				// (здесь в значении поля: fields указываем СУБД: посчитай всё и предоставь эту выборку с псевдонимом: count)
+				'fields' => ['COUNT(*) as count'],
+				'where' => $where,
+				'no_concat' => true // т.е. не пристыковывать имя таблицы
+			])[0]['count'] ?? 0; // укажем, что вернуть надо нулевой элемент той выборки, которая 
+			// пришла (в его ячейку: count) + увеличиваем $menu_pos на 1 (т.е. означает: добавили данные (add)) 
+			// (+Выпуск №88)
+			// Для редактирования (edit), $menu_pos не увеличиваем
+			// имеем: если $this->data пришла, то !$this->data даёт false, а значит (int)!$this->data = 0 (для edit),
+			// а если $this->data не пришла, то !$this->data даёт true, а значит (int)!$this->data = 1 (для add)
+
+			if (!$this->data) $menu_pos++;
 
 			for ($i = 1; $i <= $menu_pos; $i++) {
 

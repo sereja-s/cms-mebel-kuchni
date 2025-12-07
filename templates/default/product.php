@@ -56,69 +56,50 @@
 				<div class="full-item__content">
 
 					<!-- slider -->
-					<div class="full-item__slider">
-						<!-- mini -->
-						<div class="full-item__slider-mini">
+					<div style="margin: 0 auto;">
+						<div class="full-item__slider">
+							<!-- mini -->
+							<div class="full-item__slider-mini">
 
-							<?php if (!empty($data['gallery_img'])) : ?>
+								<?php if (!empty($data['gallery_img'])) : ?>
 
-								<div class="full-item__slider-mini-item">
+									<div class="full-item__slider-mini-item">
+										<img src="<?= $this->img($data['img']) ?>" alt="<?= $data['name'] ?>">
+									</div>
+
+									<?php foreach (json_decode($data['gallery_img'], true) as $item) : ?>
+
+										<div class="full-item__slider-mini-item">
+											<img src="<?= $this->img($item) ?>" alt="<?= $data['name'] ?>">
+										</div>
+
+									<?php endforeach; ?>
+
+								<?php endif; ?>
+
+							</div>
+
+							<!-- full slider -->
+							<div class="full-item__slider-full">
+								<div class="full-item__slider-full-item">
 									<img src="<?= $this->img($data['img']) ?>" alt="<?= $data['name'] ?>">
 								</div>
 
-								<?php foreach (json_decode($data['gallery_img'], true) as $item) : ?>
+								<?php if (!empty($data['gallery_img'])) : ?>
 
-									<div class="full-item__slider-mini-item">
-										<img src="<?= $this->img($item) ?>" alt="<?= $data['name'] ?>">
-									</div>
+									<?php foreach (json_decode($data['gallery_img'], true) as $item) : ?>
 
-								<?php endforeach; ?>
+										<div class="full-item__slider-full-item">
+											<img src="<?= $this->img($item) ?>" alt="<?= $data['name'] ?>">
+										</div>
 
-							<?php endif; ?>
+									<?php endforeach; ?>
 
-						</div>
+								<?php endif; ?>
 
-						<!-- full slider -->
-						<div class="full-item__slider-full">
-							<div class="full-item__slider-full-item">
-								<img src="<?= $this->img($data['img']) ?>" alt="<?= $data['name'] ?>">
 							</div>
-
-							<?php if (!empty($data['gallery_img'])) : ?>
-
-								<?php foreach (json_decode($data['gallery_img'], true) as $item) : ?>
-
-									<div class="full-item__slider-full-item">
-										<img src="<?= $this->img($item) ?>" alt="<?= $data['name'] ?>">
-									</div>
-
-								<?php endforeach; ?>
-
-							<?php endif; ?>
-
 						</div>
 					</div>
-
-					<!-- <div class="full-item__description">
-
-						<div class="full-item__table">
-
-							<div class="tech-content"><?= $data['short_content'] ?></div>
-
-						</div>
-
-						<?php if (!empty($data['filters'])) : ?>
-
-							<div class="full-item__all-char">
-								<a class="full-item__all-char-link scroll-to" href="#full-item__tabs" style="text-decoration: underline;">Характеристики в фильтре</a>
-							</div>
-
-						<?php endif; ?>
-
-					</div> -->
-
-
-
 					<!-- price -->
 					<div class="full-item__price" data-productContainer>
 						<div class="full-item__price-wrapper">
@@ -158,42 +139,8 @@
 
 							</div>
 
-							<!-- <div class="full-item__buy">
-								<a data-addToCart="<?= $data['id'] ?>" <?= !empty($this->cart['goods'][$data['id']]) ? 'data-toCartAdded' : '' ?> href="#" class="full-item__add-to-cart-button">Добавить в корзину</a>
-							</div> -->
 						</div>
 
-
-						<div class="full-item__delivery-info">
-							<div class="full-item__di-item">
-								<h4 class="full-item__di-title full-item__di-title-garanty">Гарантия</h4>
-
-								<div class="full-item__di-show">
-									<div class="full-item__di-text">
-										<p>Товар сертифицирован</p>
-									</div>
-
-									<div class="full-item__di-link">
-										<p><a href="#">Информация о гарантии</a></p>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="full-item__di-item">
-								<h4 class="full-item__di-title full-item__di-title-delivery">Доставка</h4>
-
-								<div class="full-item__di-show">
-									<div class="full-item__di-text">
-
-										<?= !empty($deliveryInfo['content']) ? $deliveryInfo['content'] : '' ?>
-
-									</div>
-								</div>
-
-							</div>
-
-						</div>
 					</div>
 
 				</div>
@@ -205,7 +152,6 @@
 					<li class="full-item__tabs-menu-item"><a href="#tabs-1">Характеристики</a></li>
 					<li class="full-item__tabs-menu-item"><a href="#tabs-2">Описание</a></li>
 				</ul>
-
 				<div id="tabs-1">
 					<div class="full-item__tabs-table">
 						<div class="full-item__table">
@@ -234,60 +180,8 @@
 					<?= $data['content'] ?>
 
 				</div>
-
 			</div>
 
-			<!-- <div class="full-item__recommendation">
-				<h3 class="h3-title full-item__recommendation-title">C этим товаром покупают</h3>
-
-				<div class="full-item__recommendation-wrapper">
-
-					<div class="short-item__item">
-
-						<a class="short-item__img-link" href="#">
-							<div class="short-item__lt-info">
-								<span class="short-item__new">Новинка</span>
-								<span class="short-item__present">Подарок</span>
-							</div>
-
-							<div class="short-item__lb-info">
-								<span class="short-item__discount">-20%</span>
-							</div>
-
-							<img src="img/catalog-img-1.png" alt="" class="short-item__img">
-						</a>
-						
-
-						
-						<div class="short-item__price">
-							<p class="short-item__price-num">12 199 грн</p>
-							<s class="short-item__price-s-num">15 199 грн</s>
-						</div>
-						
-						<div class="short-item__item-title">
-							<a class="short-item__item-link" href="#">Водонагреватель Electrolux EWH 80 Formax</a>
-						</div>
-						
-						<div class="short-item__item-info">
-							<div class="short-item__item-rating">
-								<img src="img/icons/star-activ.jpg" alt="1">
-								<img src="img/icons/star-activ.jpg" alt="2">
-								<img src="img/icons/star-activ.jpg" alt="3">
-								<img src="img/icons/star-activ.jpg" alt="4">
-								<img src="img/icons/star-pasiv.svg" alt="5">
-							</div>
-
-							<div class="short-item__item-comment">
-								<a class="short-item__comment-link" href="#">17</a>
-							</div>
-						</div>
-						
-						<a class="short-item__add-cart" href="#">В корзину</a>
-						
-					</div>
-
-				</div>
-			</div> -->
 		</div>
 	</section>
 	<!-- full-item end -->

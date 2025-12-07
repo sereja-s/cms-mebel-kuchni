@@ -106,7 +106,7 @@ class Settings
 	// свойство: массив шаблонов
 	private $templateArr = [
 		// массив вида: 'название шаблона' => массив с полями для которых должен быть подключен соответствующий шаблон
-		'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'sub_title', 'number_of_years', 'discount', 'price', 'login', 'password', 'sb_title', 'sb_alias', 'working_time'],
+		'text' => ['name', 'phone', 'phone_2', 'email', 'alias', 'external_alias', 'sub_title', 'number_of_years', 'discount', 'price', 'login', 'password', 'sb_title', 'sb_alias', 'working_time'],
 		'textarea' => ['content', 'sb_text', 'keywords', 'address', 'description', 'short_content', 'title'],
 		'radio' => ['visible', 'show_top_menu', 'hit', 'sale', 'new', 'hot'],
 		'select' => ['menu_position', 'parent_id'],
@@ -128,6 +128,7 @@ class Settings
 		'content' => ['Описание', '(Текстовая часть, фотографии, картинки к описанию)'],
 		'description' => ['SEO описание'],
 		'phone' => ['Телефон'],
+		'phone_2' => ['Телефон-2'],
 		'working_time' => ['График работы'],
 		'email' => ['Электронная почта'],
 		'address' => ['Адрес'],

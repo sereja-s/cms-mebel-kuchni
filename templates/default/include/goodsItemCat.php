@@ -1,6 +1,6 @@
 <?php if (!empty($data)) : ?>
 
-	<div class="short-item__item">
+	<div style="min-height: 100%; display: flex; flex-direction: column;" class="short-item__item">
 
 		<div class="short-item__img-link">
 			<div class="short-item__lt-info">
@@ -26,27 +26,22 @@
 				</div>
 
 			<?php endif; ?>
+		</div>
 
-			<div class="short-item__rt-info">
-				<span class="short-item__add-link"></span>
-				<span class="short-item__add-compare"></span>
+		<a style="flex: 1 1 auto;" href="<?= $this->alias(['product' => $data['alias']]) ?>" data-productContainer>
+			<img class="short-item__img" src="<?= $this->img($data['img']) ?>" alt="<?= $data['name'] ?>">
+		</a>
+
+		<div style="margin: 10px 0;">
+			<div class="short-item__price">
+				<p class="short-item__price-num"><?= $data['price'] ?>руб.</p>
+				<?= !empty($data['old_price']) ? '<s class="short-item__price-s-num">' . $data['old_price'] . ' руб.</s>' : '' ?>
 			</div>
 
-			<a href="<?= $this->alias(['product' => $data['alias']]) ?>" data-productContainer>
-				<img class="short-item__img" src="<?= $this->img($data['img']) ?>" alt="<?= $data['name'] ?>">
-			</a>
+			<div class="short-item__item-title">
+				<a class="short-item__item-link" href="<?= $this->alias(['product' => $data['alias']]) ?>"><?= $data['name'] ?></a>
+			</div>
 		</div>
-
-		<div class="short-item__price">
-			<p class="short-item__price-num"><?= $data['price'] ?>руб.</p>
-			<?= !empty($data['old_price']) ? '<s class="short-item__price-s-num">' . $data['old_price'] . ' руб.</s>' : '' ?>
-		</div>
-
-		<div class="short-item__item-title">
-			<a class="short-item__item-link" href="<?= $this->alias(['product' => $data['alias']]) ?>"><?= $data['name'] ?></a>
-		</div>
-
-		<!-- <a class="short-item__add-cart" data-addToCart="<?= $data['id'] ?>" href="#">В корзину</a> -->
 
 	</div>
 
